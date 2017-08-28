@@ -1,9 +1,9 @@
 /************************************************************************
-* IMPLEMENTACIÓN DE LA LIBRERÍA TAD PILA ESTÁTICA						*
-* AUTORES:																*
-* - Alanís Ramírez Damián												*
-* - Mendieta Torres Alfonso Ulises										*
-* - Oledo Gilberto														*
+* IMPLEMENTACIÓN DE LA LIBRERÍA TAD PILA ESTÁTICA			*
+* AUTORES:								*
+* - Alanís Ramírez Damián						*
+* - Mendieta Torres Alfonso Ulises					*
+* - Oledo Gilberto							*
 *																		*
 * DESCRIPCIÓN: TAD pila o stack.										*
 * Estructura de datos en la cual se cumple:								*
