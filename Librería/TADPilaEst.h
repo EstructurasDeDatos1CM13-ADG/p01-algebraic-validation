@@ -1,19 +1,19 @@
 /************************************************************************
-* LIBRERIA: TAD Pila Estática 											*
-* AUTORES:																*
-* - Alanís Ramírez Damián												*
-* - Mendieta Torres Alfonso Ulises										*
-* - Oledo Gilberto														*
-*																		*
-* DESCRIPCIÓN: TAD pila o stack.										*
-* Estructura de datos en la cual se cumple:								*
+* LIBRERIA: TAD Pila Estática 						*
+* AUTORES:								*
+* - Alanís Ramírez Damián						*
+* - Mendieta Torres Alfonso Ulises					*
+* - Oledo Gilberto							*
+*									*									*
+* DESCRIPCIÓN: TAD pila o stack.					*
+* Estructura de datos en la cual se cumple:				*
 * Los elementos se añaden y remueven por un solo extremo (siguiendo el 	*
-* criterio LIFO - Last In First Out).									*
-* Este extremo se llama "tope" de la pila.								*
-* 																		*
+* criterio LIFO - Last In First Out).					*
+* Este extremo se llama "tope" de la pila.				*
+* 									*									*
 * OBSERVACIONES: Hablamos de una estructura de datos estática cuando se *
 * le asigna una cantidad fija de memoria antes de la ejecución del pro- *
-* grama.																*												
+* grama.								*												
 *************************************************************************/
 
 //DEFINICIONES DE CONSTANTES
