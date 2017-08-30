@@ -1,17 +1,17 @@
 /************************************************************************
-* PROGRAMA: validarAlgebraPila.c 										*
-* AUTORES:																*
-* - Alanís Ramírez Damián												*
-* - Mendieta Torres Alfonso Ulises										*
-* - Oledo Gilberto														*
-*																		*
+* PROGRAMA: validarAlgebraPila.c 					*
+* AUTORES:								*
+* - Alanís Ramírez Damián						*
+* - Mendieta Torres Alfonso Ulises					*
+* - Oledo Gilberto							*
+*									*																	*
 * DESCRIPCIÓN: Programa que pide una cadena de caracteres (expresión al-*
 * gebraica) y procede a analizar los paréntesis, realizar la conversión *
 * a postfijo y da la correspondiente solución. Esto por medio del uso de*
-* la libreria TADPila(Est|Din).h creada en clase.						*
-*																		*
-* Compilación: cd (ruta_archivos)										*
-* gcc -o validarAlgebraPila validarAlgebraPila.c TADPilaEst.c 			*
+* la libreria TADPila(Est|Din).h creada en clase.			*
+*									*																		*
+* Compilación: cd (ruta_archivos)					*
+* gcc -o validarAlgebraPila validarAlgebraPila.c TADPilaEst.c 		*
 *************************************************************************/
 
 #include <stdio.h>
