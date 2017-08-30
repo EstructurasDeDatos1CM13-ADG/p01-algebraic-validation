@@ -1,9 +1,9 @@
 Clonar el directorio 'Librerias/(TADPilaEst|TADPilaDin)' e incluir unicamente los archivos (.c y .h) que se requieran en una sola carpeta del equipo.
-Clonar el directorio 'main' e incluir en la misma carpeta donde se incluyeron los archivos anteriores.
-Abrir una terminal (cmd o Símbolo del sistema en Windows) e ir a la dirección de la carpeta del equipo donde se guardo todo.
+Clonar el archivo 'validarAlgebraPila.c' e incluir en la misma carpeta donde se introdujeron los archivos anteriores.
+Abrir una terminal (cmd o SÃ­mbolo del sistema en Windows) e ir a la direcciÃ³n de la carpeta del equipo donde se guardo todo.
 Por ejemplo, si los archivos se copiaron al escritorio:
 	cd Desktop
 Posteriormente se compila de la siguiente forma:
-	gcc -o main main.c TADPila(Est|Din).c
-			ó
-	gcc -o main main.c TADPila(Est|Din).o si se compilo previamente el archivo TADPila(Est|Din).c generando el código objeto (.o) con la instrucción: gcc -c TADPila(Est|Din).c
+	gcc -o validarAlgebraPila validarAlgebraPila.c TADPila(Est|Din).c
+			Ã³
+	gcc -o validarAlgebraPila validarAlgebraPila.c TADPila(Est|Din).o si se compilo previamente el archivo TADPila(Est|Din).c generando el cÃ³digo objeto (.o) con la instrucciÃ³n: gcc -c TADPila(Est|Din).c
