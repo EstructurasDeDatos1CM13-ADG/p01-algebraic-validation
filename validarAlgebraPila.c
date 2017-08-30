@@ -1,3 +1,16 @@
+/************************************************************************
+* PROGRAMA: validarAlgebraPila.c 					*
+* AUTORES:								*
+* - Alanís Ramírez Damián						*
+* - Mendieta Torres Alfonso Ulises					*
+* - Oledo Gilberto							*
+*									*									*
+* DESCRIPCIÓN: Programa que pide una cadena de caracteres (expresión al-*
+* gebraica) y procede a analizar los paréntesis, realizar la conversión *
+* a postfijo y da la correspondiente solución. Esto por medio del uso de*
+* la libreria TADPila(Est|Din).h creada en clase.			*
+*									*									*
+*************************************************************************/
 #include <stdio.h>
 #include <string.h>
 #include <ctype.h>
@@ -18,7 +31,6 @@ double solucionAlgebra(char const *cadena);
 
 //MAIN
 int main(){
-	//DECLARACIÓN DE VARIABLES CON UN TIPO DE DATO DEFINIDO POR EL USUARIO
 	//DECLARACIÓN DE VARIABLES DEL MAIN
 	char expresion[MAX], a[5] = {27,']','2','J',0};
 	int i;
