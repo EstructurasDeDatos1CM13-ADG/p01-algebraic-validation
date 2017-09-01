@@ -4,7 +4,7 @@
 * - Alanís Ramírez Damián                                               *
 * - Mendieta Torres Alfonso Ulises                                      *
 * - Oledo Gilberto                                                      *
-* VERSIÓN: 1.5                                                          *
+* VERSIÓN: 1.6                                                          *
 *                                                                       *
 * DESCRIPCIÓN: Programa que pide una cadena de caracteres (expresión al-*
 * gebraica) y procede a analizar los paréntesis, realizar la conversión *
@@ -24,12 +24,6 @@
 //DEFINICIONES
 #define MAX 100
 
-//VARIABLES GLOBALES
-elemento e1;	//Crea un elemento e1
-pila p1;		//Crea una pila p1
-int indice = 0; //índice del arreglo salidaPostfijo[], debe estar disponible de forma global
-//para poder ser modificado desde cualquier instancia del programa
-
 //DECLARACIÓN DE FUNCIONES
 boolean otroProceso();
 boolean validarParentesis(char const *cadena);
@@ -46,11 +40,12 @@ float Potencia(float a, float b);
 //MAIN
 int main(){
 	//DECLARACIÓN DE VARIABLES DEL MAIN
+	elemento e1;
+	pila p1;
 	char expresion[MAX]; //Arreglo que contendrá a la expresión algebráica
 	int i;				 //Variable para un contador
 	while(1){
 		Initialize(&p1);//Inicializa la pila p1
-		indice = 0; 	//Resetea el índice del arreglo salidaPostfijo a 0
 		//Impresión de las instrucciones y precondiciones del programa
 		printf("Programa que valida y resuelve expresiones algebraicas por medio del TAD pila");
 		printf("\nIntroduzca una expresion algebraica considerando: ");
@@ -124,6 +119,9 @@ se pasa por referencia
 */
 boolean validarParentesis(char const *cadena){
 	int i;
+	elemento e1;
+	pila p1;
+	Initialize(&p1);
 	printf("\n Su expresion %s fue guardada correctamente. \nSe procedera a validar parentesis\n", cadena);
 	for(i = 0; i < strlen(cadena); i++){
 		if(cadena[i] == '('){
@@ -242,6 +240,8 @@ float Potencia(float a, float b){
 */
 float solucionAlgebra(char const *cadena, int n){
 	int i;
+	elemento e1;
+	pila p1;
 	float val[27], valMarcado[27] = {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1};
 	/*
 		val[27] esta relacionado con que cada letra del alfabeto va a ocupar una posición en ese arreglo,
@@ -270,6 +270,7 @@ float solucionAlgebra(char const *cadena, int n){
 	*/
 	float resultado, a, b;
 	setbuf(stdin, NULL);
+	Initialize(&p1);
 	for(i = 0; i < n; i++){
 		if(esOperador(cadena[i]) == FALSE){ //Este procedimiento solo se aplica a las letras y no a los operadores
 			if(valMarcado[cadena[i] - 'a'] == 1 ){ //Para determinar si el valor ya ha sido indicado
@@ -349,11 +350,14 @@ float solucionAlgebra(char const *cadena, int n){
  Devuelve: 
 */
 void pasarPostfijo(char const *cadena){
+	elemento e1;
+	pila p1;
+	int indice = 0; //Declara la variable indice para ser empleada en salidaPostfijo[indice] y la inicializa en 0
 	int i, j, n, operadorAbajo, operadorArriba, tamano; //operadorAbajo y operadorArriba servirán para analizar jerarquía
 	char salidaPostfijo[MAX]; //salidaPostfijo contendrá la expresión en postfijo
-	indice = 0; //Pone el ínidice de salidaPostfijo en 0
 	strcpy(salidaPostfijo, " ");
 	setbuf(stdin, NULL);
+	Initialize(&p1);
 	tamano = tamanoReal(cadena); //Guarda el tamaño de la cadena excluyendo los paréntesis
 	for(i = 0; i < strlen(cadena); i++){
 		if(cadena[i] >= 97 && cadena[i] <= 122){ //Si es una letra minúscula de la 'a' a la 'z' (es decir, es un operando)
