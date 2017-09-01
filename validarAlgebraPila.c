@@ -1,17 +1,18 @@
 /************************************************************************
-* PROGRAMA: validarAlgebraPila.c 										*
-* AUTORES:																*
-* - Alanís Ramírez Damián												*
-* - Mendieta Torres Alfonso Ulises										*
-* - Oledo Gilberto														*
-*																		*
+* PROGRAMA: validarAlgebraPila.c                                        *
+* AUTORES:                                                              *
+* - Alanís Ramírez Damián                                               *
+* - Mendieta Torres Alfonso Ulises                                      *
+* - Oledo Gilberto                                                      *
+* VERSIÓN: 1.5                                                          *
+*                                                                       *
 * DESCRIPCIÓN: Programa que pide una cadena de caracteres (expresión al-*
 * gebraica) y procede a analizar los paréntesis, realizar la conversión *
 * a postfijo y da la correspondiente solución. Esto por medio del uso de*
-* la libreria TADPila(Est|Din).h creada en clase.						*
-*																		*
-* Compilación: cd (ruta_archivos)										*
-* gcc -o validarAlgebraPila validarAlgebraPila.c TADPila(Est|Din).c 	*
+* la libreria TADPila(Est|Din).h creada en clase.                       *
+*                                                                       *
+* Compilación: cd (ruta_archivos)                                       *
+* gcc -o validarAlgebraPila validarAlgebraPila.c TADPila(Est|Din).c     *
 *************************************************************************/
 
 #include <stdio.h>
@@ -154,6 +155,7 @@ int precedencia(char c){
 		case '*': resultado = 2; break;
 		case '/': resultado = 2; break;
 		case '^': resultado = 3; break;
+		case '(': resultado = 0; break;
 	}
 	return resultado;
 }
@@ -287,7 +289,7 @@ float solucionAlgebra(char const *cadena, int n){
 
 			}
 		}
-		if(esOperador(cadena[i]) == TRUE){ //Si lo que encuentra en el recorrido de la cadena es un operador
+		if(esOperador(cadena[i]) == TRUE && Empty(&p1) == FALSE){ //Si lo que encuentra en el recorrido de la cadena es un operador
 			switch(cadena[i]){
 				case '+': //Si encuentra un más 
 					e1 = Pop(&p1); //Hace un Pop
@@ -338,6 +340,14 @@ float solucionAlgebra(char const *cadena, int n){
 	return resultado; //Devuelve el resultado como tipo flotante de la expresión algebráica
 }
 
+/*
+ void pasarPostfijo(char const *cadena)
+ Descripción: función que realiza la conversión de la expresión en infijo a postfijo (la expresión
+ en infijo se le pasa como argumento) y muestra la conversión en pantalla. Finalmente llama a 
+ solucionAlgebra(...) y una vez que esta finaliza devuelve el control al main.
+ Recibe: una cadena (expresión en infijo).
+ Devuelve: 
+*/
 void pasarPostfijo(char const *cadena){
 	int i, j, n, operadorAbajo, operadorArriba, tamano; //operadorAbajo y operadorArriba servirán para analizar jerarquía
 	char salidaPostfijo[MAX]; //salidaPostfijo contendrá la expresión en postfijo
@@ -356,7 +366,7 @@ void pasarPostfijo(char const *cadena){
 			Push(&p1, e1);
 			printf("\n%d Analizando expresion, %c detectado", i+1, e1.c);
 		}
-		if(cadena[i] == ')'){ 
+		if(cadena[i] == ')' && Empty(&p1) == FALSE){ 
 			j = 0;			  
 			printf("\n%d ')' Detectado, sacando elementos de la pila hasta encontrar '('", i+1);
 			do{					
@@ -398,8 +408,10 @@ void pasarPostfijo(char const *cadena){
 	n = Size(&p1); //n es igual al tamaño de la pila
 	printf("\nEl tamano de la pila de operadores es: %d", n);
 	for(i = 0; i < n; i++){ //Este ciclo for se hará para sacar cualquier operador que todavía quedara en la pila
-		e1 = Pop(&p1);//y procede a guardarlos en salidaPostfijo
-		salidaPostfijo[indice] = e1.c;
+		if(Empty(&p1) == FALSE){
+			e1 = Pop(&p1);//y procede a guardarlos en salidaPostfijo
+			salidaPostfijo[indice] = e1.c;
+		}
 		printf("\n%d.%d Se saco el operador %c de la pila y se agrego a salidaPostfijo[%d]", j + 1, i, e1.c, indice); 
 		indice++;
 	}
