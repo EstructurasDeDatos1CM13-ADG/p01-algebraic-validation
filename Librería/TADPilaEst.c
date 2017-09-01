@@ -4,18 +4,18 @@
 * - Alanís Ramírez Damián						*
 * - Mendieta Torres Alfonso Ulises					*
 * - Oledo Gilberto							*
-*																		*
-* DESCRIPCIÓN: TAD pila o stack.										*
-* Estructura de datos en la cual se cumple:								*
+*                                                                       *																		*
+* DESCRIPCIÓN: TAD pila o stack.                                        *
+* Estructura de datos en la cual se cumple:                             *
 * Los elementos se añaden y remueven por un solo extremo (siguiendo el 	*
-* criterio LIFO - Last In First Out).									*
-* Este extremo se llama "tope" de la pila.								*
-* 																		*
+* criterio LIFO - Last In First Out).                                   *
+* Este extremo se llama "tope" de la pila.                              *
+*                                                                       * 																		*
 * OBSERVACIONES: Hablamos de una estructura de datos estática cuando se *
 * le asigna una cantidad fija de memoria antes de la ejecución del pro- *
-* grama.																*
-*																		*
-* COMPILACIÓN PARA GENERAR EL CÓDIGO OBJETO: gcc -c TADPilaEst.c 		*												
+* grama.                                                                *																*
+*                                                                       *																		*
+* COMPILACIÓN PARA GENERAR EL CÓDIGO OBJETO: gcc -c TADPilaEst.c        *												
 *************************************************************************/
 
 //LIBRERIAS
