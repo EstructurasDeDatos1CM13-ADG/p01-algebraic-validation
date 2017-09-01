@@ -19,7 +19,7 @@
 #include <math.h>
 #include <string.h>
 #include <ctype.h>
-#include "TADPilaEst.h"
+#include "TADPilaDin.h"
 
 //DEFINICIONES
 #define MAX 100
@@ -377,12 +377,15 @@ void pasarPostfijo(char const *cadena){
 					indice ++;
 				}
 				j++;
-			}while(e1.c != '(');//Saca operadores hasta que llegue al '('
+			}while(e1.c != '(' && Empty(&p1) == FALSE);//Saca operadores hasta que llegue al '('
 		}
 		if(cadena[i] == '+' || cadena [i] == '-' || cadena[i] == '/' || cadena[i] == '*'){
 			operadorArriba = precedencia(cadena[i]);//El operador que esta por entrar a la pila procede del escaneo de cadena
-			e1 = Top(&p1);
-			operadorAbajo = precedencia(e1.c);		//El operador que esta abajo del que se quiere introducir en la pila se obtiene con Top
+			if(Empty(&p1) == FALSE){
+				e1 = Top(&p1);
+				operadorAbajo = precedencia(e1.c);		//El operador que esta abajo del que se quiere introducir en la pila se obtiene con Top
+			}
+			else operadorAbajo = 0;
 			if(operadorArriba <= operadorAbajo && Empty(&p1) == FALSE){ //Si el operador que se busca introducir es de menor jerarquía
 				e1 = Pop(&p1); //hace un Pop explicando que un operador de menor prioridad no puede estar arriba de uno de mayor
 				printf("\n Un operador '%c' no puede estar abajo de un operador '%c', pasando '%c' a salidaPostfijo[%d]", e1.c, cadena[i], e1.c, indice);
