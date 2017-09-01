@@ -4,7 +4,7 @@
 * - Alanís Ramírez Damián                                               *
 * - Mendieta Torres Alfonso Ulises                                      *
 * - Oledo Gilberto                                                      *
-* VERSIÓN: 1.6                                                          *
+* VERSIÓN: 1.7                                                          *
 *                                                                       *
 * DESCRIPCIÓN: Programa que pide una cadena de caracteres (expresión al-*
 * gebraica) y procede a analizar los paréntesis, realizar la conversión *
@@ -40,10 +40,10 @@ float Potencia(float a, float b);
 //MAIN
 int main(){
 	//DECLARACIÓN DE VARIABLES DEL MAIN
-	elemento e1;
-	pila p1;
+	elemento e1; //Declara una variable de tipo elemento
+	pila p1;     //Declara una variable de tipo pila
 	char expresion[MAX]; //Arreglo que contendrá a la expresión algebráica
-	int i;				 //Variable para un contador
+	int i;		     //Variable para un contador
 	while(1){
 		Initialize(&p1);//Inicializa la pila p1
 		//Impresión de las instrucciones y precondiciones del programa
@@ -97,7 +97,8 @@ boolean otroProceso(){
 /*
  int tamanoReal(char const *cadena)
  Descripción: recibe una cadena y devuelve el tamaño de esta (excluyendo a los
- paréntesis del conteo)
+ paréntesis del conteo) con el fin de evitar la impresión de basura del arreglo
+ salidaPostfijo.
  Recibe: una cadena de caracteres (char const *cadena)
  Devuelve: resultado, es decir, el tamaño de la cadena sin paréntesis
 */
