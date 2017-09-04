@@ -4,7 +4,7 @@
 * - Alanís Ramírez Damián                                               *
 * - Mendieta Torres Alfonso Ulises                                      *
 * - Oledo Gilberto                                                      *
-* VERSIÓN: 1.7                                                          *
+* VERSIÓN: 1.8                                                          *
 *                                                                       *
 * DESCRIPCIÓN: Programa que pide una cadena de caracteres (expresión al-*
 * gebraica) y procede a analizar los paréntesis, realizar la conversión *
@@ -19,7 +19,7 @@
 #include <math.h>
 #include <string.h>
 #include <ctype.h>
-#include "TADPilaDin.h"
+#include "TADPilaEst.h"
 
 //DEFINICIONES
 #define MAX 100
@@ -30,7 +30,7 @@ boolean validarParentesis(char const *cadena);
 int precedencia(char c);
 boolean esOperador(char c);
 void pasarPostfijo(char const *cadena);
-float solucionAlgebra(char const *cadena);
+float solucionAlgebra(char const *cadena, int n);
 float Multiplicacion(float a, float b);
 float Suma(float a, float b);
 float Resta(float a, float b);
@@ -229,8 +229,8 @@ float Potencia(float a, float b){
  sin contar la basura que habia quedado almacenada en las posiciones libres del arreglo.
  Devuelve: el resultado de la expresión algebráica como tipo flotante
 */
-float solucionAlgebra(char const *cadena){
-	int i, tamano;
+float solucionAlgebra(char const *cadena, int n){
+	int i;
 	elemento e1;
 	pila p1;
 	float val[27], valMarcado[27] = {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1};
@@ -261,8 +261,7 @@ float solucionAlgebra(char const *cadena){
 	*/
 	float resultado, a, b;
 	Initialize(&p1);
-	tamano = strlen(cadena);
-	for(i = 0; i < tamano; i++){
+	for(i = 0; i < n; i++){
 		if(esOperador(cadena[i]) == FALSE && cadena[i] >= 97 && cadena[i] <= 122){ //Este procedimiento solo se aplica a las letras y no a los operadores
 			if(valMarcado[cadena[i] - 'a'] == 1 ){ //Para determinar si el valor ya ha sido indicado
 				printf("\nIntroduzca un valor para '%c': ", cadena[i]); //Se pide por única vez el valor númerico de esa variable (letra)
@@ -344,11 +343,13 @@ void pasarPostfijo(char const *cadena){
 	elemento e1;
 	pila p1;
 	int indice = 0; //Declara la variable indice para ser empleada en salidaPostfijo[indice] y la inicializa en 0
-	int i, j, tamano, operadorAbajo, operadorArriba; //operadorAbajo y operadorArriba servirán para analizar jerarquía
+	int i, j, tamano = 0, operadorAbajo, operadorArriba; //operadorAbajo y operadorArriba servirán para analizar jerarquía
 	char salidaPostfijo[MAX]; //salidaPostfijo contendrá la expresión en postfijo
 	Initialize(&p1);
-	tamano = strlen(cadena);
-	for(i = 0; i < tamano; i++){
+	for(i = 0; i < strlen(cadena); i++){
+		if(cadena[i] != '(' && cadena[i] != ')') tamano++;
+	}
+	for(i = 0; i < strlen(cadena); i++){
 		if(cadena[i] >= 97 && cadena[i] <= 122){ //Si es una letra minúscula de la 'a' a la 'z' (es decir, es un operando)
 			salidaPostfijo[indice] = cadena[i]; //Directamente agrega el operando a salidaPostfijo
 			printf("\n%i Operando detectado, agregado a arreglo salidaPostfijo[%d]", i+1, indice);
@@ -401,9 +402,8 @@ void pasarPostfijo(char const *cadena){
 		}
 	}
 	j = i; //Se guarda el valor que tenía i al final del for en j simplemente para indicar subpasos (Ej 1.1, 1.2)
-	tamano = Size(&p1); //n es igual al tamaño de la pila
-	printf("\nEl tamano de la pila de operadores es: %d", tamano);
-	for(i = 0; i < tamano; i++){ //Este ciclo for se hará para sacar cualquier operador que todavía quedara en la pila
+	printf("\nEl tamano de la pila de operadores es: %d", Size(&p1));
+	for(i = 0; i <= Size(&p1); i++){ //Este ciclo for se hará para sacar cualquier operador que todavía quedara en la pila
 		if(Empty(&p1) == FALSE){
 			e1 = Pop(&p1);//y procede a guardarlos en salidaPostfijo
 			salidaPostfijo[indice] = e1.c;
@@ -414,10 +414,12 @@ void pasarPostfijo(char const *cadena){
 	if(Empty(&p1) == TRUE){ //Cuando se haya vaciado la pila se imprime la expresión en postfijo
 		printf("\nLa pila esta vacia, a continuacion se imprimira la expresion en Postfijo: ");
 		printf("\nExpresion en postfijo = ");
-		puts(salidaPostfijo);
+		for(i = 0; i < tamano; i++){
+			printf("%c", salidaPostfijo[i]);
+		}
 		Destroy(&p1); //Se destruye la pila p1
 		setbuf(stdin, NULL);
-		printf("\n\n\n\n\t El resultado de la expresion es: %lf ",solucionAlgebra(salidaPostfijo)); //Se llama a la
+		printf("\n\n\n\n\t El resultado de la expresion es: %lf ",solucionAlgebra(salidaPostfijo, tamano)); //Se llama a la
 		//función solucionAlgebra(char const *cadena, int n) y se le pasan la salidaPostfijo y el tamaño de la cadena 
 		//original como argumentos, al finalizar retornará el resultado final, mismo que se imprimirá
 	}
