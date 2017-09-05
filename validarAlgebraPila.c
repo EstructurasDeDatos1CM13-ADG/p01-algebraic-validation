@@ -3,7 +3,7 @@
 * AUTORES:                                                              *
 * - Alanís Ramírez Damián                                               *
 * - Mendieta Torres Alfonso Ulises                                      *
-* - Oledo Gilberto                                                      *
+* - Oledo Enriquez Gilberto Irving                                      *
 * VERSIÓN: 1.8                                                          *
 *                                                                       *
 * DESCRIPCIÓN: Programa que pide una cadena de caracteres (expresión al-*
