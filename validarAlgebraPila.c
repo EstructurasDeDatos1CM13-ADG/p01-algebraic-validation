@@ -4,7 +4,7 @@
 * - Alanís Ramírez Damián                                               *
 * - Mendieta Torres Alfonso Ulises                                      *
 * - Oledo Enriquez Gilberto Irving                                      *
-* VERSIÓN: 1.8                                                          *
+* VERSIÓN: 2.0                                                          *
 *                                                                       *
 * DESCRIPCIÓN: Programa que pide una cadena de caracteres (expresión al-*
 * gebraica) y procede a analizar los paréntesis, realizar la conversión *
@@ -19,7 +19,7 @@
 #include <math.h>
 #include <string.h>
 #include <ctype.h>
-#include "TADPilaEst.h"
+#include "TADPilaDin.h"
 
 //DEFINICIONES
 #define MAX 100
@@ -47,11 +47,12 @@ int main(){
 	while(1){
 		Initialize(&p1);//Inicializa la pila p1
 		//Impresión de las instrucciones y precondiciones del programa
+		printf("\t\t IPN \n\t\t ESCOM \n");
 		printf("Programa que valida y resuelve expresiones algebraicas por medio del TAD pila");
 		printf("\nIntroduzca una expresion algebraica considerando: ");
 		printf("\n + = Suma \t\t - = Resta \n / = Division \t\t * = Multiplicacion \n ^ = Potencia\n");
 		printf("Puede introducir parentesis, los cuales seran validados\n");
-		printf("Como ejemplo, puede introducir una expresion como (a+b)^a-c\n");
+		printf("Como ejemplo, puede introducir una expresion como (A+B)^A-C\n");
 		printf("NOTA: procure no dejar espacios");
 		printf("\n\n A continuacion introduzca su expresion: ");
 		scanf("%s",expresion);
@@ -86,7 +87,7 @@ int main(){
  {'s','S','n','N'}
 */
 boolean otroProceso(){
-	char sn, respuesta[20];
+	char sn;
 	printf("\n\n\t Desea introducir otra expresion (s|S, n|N)?: ");
 	setbuf(stdin, NULL);
 	scanf("%c",&sn);
@@ -262,20 +263,20 @@ float solucionAlgebra(char const *cadena, int n){
 	float resultado, a, b;
 	Initialize(&p1);
 	for(i = 0; i < n; i++){
-		if(esOperador(cadena[i]) == FALSE && cadena[i] >= 97 && cadena[i] <= 122){ //Este procedimiento solo se aplica a las letras y no a los operadores
-			if(valMarcado[cadena[i] - 'a'] == 1 ){ //Para determinar si el valor ya ha sido indicado
+		if(esOperador(cadena[i]) == FALSE && cadena[i] >= 65 && cadena[i] <= 90){ //Este procedimiento solo se aplica a las letras y no a los operadores
+			if(valMarcado[cadena[i] - 'A'] == 1 ){ //Para determinar si el valor ya ha sido indicado
 				printf("\nIntroduzca un valor para '%c': ", cadena[i]); //Se pide por única vez el valor númerico de esa variable (letra)
-				scanf("%f",&val[cadena[i] - 'a']);
-				e1.n = val[cadena[i] - 'a']; //Se copia el valor a un tipo de dato elemento para poder pasarlo a la Pila
+				scanf("%f",&val[cadena[i] - 'A']);
+				e1.n = val[cadena[i] - 'A']; //Se copia el valor a un tipo de dato elemento para poder pasarlo a la Pila
 				Push(&p1,e1);	//Se apila el operando
-				printf("\nOperando %f empilado correctamente", val[cadena[i] - 'a']);
-				valMarcado[cadena[i] - 'a'] = 0; //Se modifica el valor de esa posición del arreglo para saber que ya se visitó
+				printf("\nOperando %f empilado correctamente", val[cadena[i] - 'A']);
+				valMarcado[cadena[i] - 'A'] = 0; //Se modifica el valor de esa posición del arreglo para saber que ya se visitó
 			}
 			else{	//Ya no pide el valor, simplemente lo empila porque ya se había dado
-				if(valMarcado[cadena[i] - 'a'] == 0 ){
-					e1.n = val[cadena[i] - 'a'];
+				if(valMarcado[cadena[i] - 'A'] == 0 ){
+					e1.n = val[cadena[i] - 'A'];
 					Push(&p1, e1);
-					printf("\nOperando %f empilado correctamente", val[cadena[i] - 'a']);
+					printf("\nOperando %f empilado correctamente", val[cadena[i] - 'A']);
 				}
 
 			}
@@ -346,11 +347,11 @@ void pasarPostfijo(char const *cadena){
 	int i, j, tamano = 0, operadorAbajo, operadorArriba; //operadorAbajo y operadorArriba servirán para analizar jerarquía
 	char salidaPostfijo[MAX]; //salidaPostfijo contendrá la expresión en postfijo
 	Initialize(&p1);
+	for(i = 0; i < strlen(cadena); i++){ 					//Este ciclo obtiene el tamaño de la expresión original (en infijo) sin
+		if(cadena[i] != '(' && cadena[i] != ')') tamano++; //paréntesis, de modo que en la impresión del postfijo se 
+	}													   //impriman los caracteres justos, sin la basura del arreglo
 	for(i = 0; i < strlen(cadena); i++){
-		if(cadena[i] != '(' && cadena[i] != ')') tamano++;
-	}
-	for(i = 0; i < strlen(cadena); i++){
-		if(cadena[i] >= 97 && cadena[i] <= 122){ //Si es una letra minúscula de la 'a' a la 'z' (es decir, es un operando)
+		if(cadena[i] >= 65 && cadena[i] <= 90){ //Si es una letra minúscula de la 'a' a la 'z' (es decir, es un operando)
 			salidaPostfijo[indice] = cadena[i]; //Directamente agrega el operando a salidaPostfijo
 			printf("\n%i Operando detectado, agregado a arreglo salidaPostfijo[%d]", i+1, indice);
 			indice++;
@@ -361,7 +362,7 @@ void pasarPostfijo(char const *cadena){
 			printf("\n%d Analizando expresion, %c detectado", i+1, e1.c);
 		}
 		if(cadena[i] == ')' && Empty(&p1) == FALSE){ 
-			j = 0;			  
+			j = 0;			 //Operador que representa las iteraciones dentro del for (el do while)		  
 			printf("\n%d ')' Detectado, sacando elementos de la pila hasta encontrar '('", i+1);
 			do{					
 				e1 = Pop(&p1); //Si se detecta paréntesis de cierre se sacán todos los operadores de la Pila
